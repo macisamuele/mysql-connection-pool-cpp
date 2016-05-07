@@ -60,6 +60,11 @@ public:
      * @params ... parameters used by the format string
      */
     void log(int iLevel, const std::string& iLocation, const std::string& iMessage, ...);
+
+    template<typename T>
+    static boost::shared_ptr<T> GetLogger() {
+        return boost::shared_ptr<T>(new T());
+    }
 };
 
 SP_TYPE(Logger);
