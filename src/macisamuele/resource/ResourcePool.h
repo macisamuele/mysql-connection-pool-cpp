@@ -14,6 +14,7 @@
 #include <exception>                // for exception handling
 #include "ResourceFactory.h"        // for ResourceFactory definition
 #include "Resource.h"               // for Resource definition
+#include "ResourcePoolStat.h"       // for ResourcePoolStats definition
 #include "../logger/Logger.h"       // for Logger definition
 
 namespace macisamuele {

@@ -13,8 +13,9 @@ namespace Resource {
 
 class ResourceUnavailable: std::runtime_error {
 public:
-    ResourceUnavailable(const std::string& iMessage = "Unable to allocate a resource") :
-            std::runtime_error(iMessage) {
+    ResourceUnavailable() : std::runtime_error("Unable to allocate a resource") {
+    }
+    ResourceUnavailable(const std::string& iMessage) : std::runtime_error(iMessage) {
     }
 };
 

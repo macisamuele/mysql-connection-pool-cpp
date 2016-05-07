@@ -8,11 +8,15 @@
 #ifndef MYSQL_MYSQLCONNECTOR_H_
 #define MYSQL_MYSQLCONNECTOR_H_
 
-#include "../resource/Resource.h"           // for Resource definition
-#include "../resource/ResourceFactory.h"    // for ResourceFactory definition
-#include "MySqlConfig.h"                    // for MySqlConfig definition
-#include "../logger/Logger.h"               // for Logger definition
-#include <cppconn/prepared_statement.h>     // for sql::PreparedStatement definition
+#include <cppconn/prepared_statement.h>         // for sql::PreparedStatement definition
+#include <cppconn/connection.h>                 // for sql::Connection definition
+#include "../TypenameDefinitions.h"             // for SP typed definition
+#include "../resource/Resource.h"               // for Resource definition
+#include "../resource/ResourceFactory.h"        // for ResourceFactory definition
+#include "../logger/Logger.h"                   // for Logger definition
+#include "../cache/Cache.h"                     // for Cache definition
+#include "../logger/Logger.h"                   // for Logger definition
+#include "MySqlConfig.h"                        // for MySqlConfig definition
 
 namespace macisamuele {
 namespace MySQL {
@@ -20,25 +24,21 @@ namespace MySQL {
 SP_NAMESPACE_TYPE(sql, PreparedStatement);
 SP_NAMESPACE_TYPE(sql, Connection);
 
-template<typename CacheType>
-class MySQLConnection: public Resource::ResourceFactory, public Resource::Resource {
+typedef Cache::Cache<std::string, PreparedStatementSP> MySqlCache;
+SP_TYPE(MySqlCache);
+
+class MySqlConnection: public Resource::ResourceFactory, public Resource::Resource {
 
 public:
-    MySQLConnection(const MySqlConfig& iConfiguration);
-    MySQLConnection(const Logger::LoggerSP& iLogger, const MySqlConfig& iConfiguration);
-
-    ~MySQLConnection();
-
+    MySqlConnection(const MySqlConfig& iConfiguration);
+    MySqlConnection(const MySqlCacheSP& iMySqlCache, const MySqlConfig& iConfiguration);
+    MySqlConnection(const Logger::LoggerSP& iLogger, const MySqlCacheSP& iMySqlCache, const MySqlConfig& iConfiguration);
+    ~MySqlConnection();
     macisamuele::Resource::ResourceSP create();
-
     bool isStatementCached(const std::string& iName);
-
     bool cacheStatement(const std::string& iName, sql::PreparedStatement* iPreparedStatement);
-
     bool cacheStatement(const std::string& iName, const PreparedStatementSP iPreparedStatement);
-
     PreparedStatementSP getStatement(const std::string& iName);
-
     bool isValid();
 
 protected:
@@ -55,11 +55,13 @@ protected:
      * and improve the reutilization of the DB level caching.
      * NOTE: the cache will never remove items until its disruption, so the in cache insertion has to guarantee a "limited" number of entries
      */
-    CacheType statementCache;
+    MySqlCacheSP statementCache;
 
 private:
     Logger::LoggerSP logger;
 };
+
+SP_TYPE(MySqlConnection);
 
 } /* namespace MySQL */
 } /* namespace macisamuele */

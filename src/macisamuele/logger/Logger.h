@@ -59,7 +59,7 @@ public:
      * @params iMessage log message (format similar to standard printf of the CC)
      * @params ... parameters used by the format string
      */
-    void log(int iLevel, const std::string& iLocation, const std::string& iMessage, ...);
+    virtual void log(int iLevel, const std::string& iLocation, const char * iMessage, ...)=0;
 
     template<typename T>
     static boost::shared_ptr<T> GetLogger() {

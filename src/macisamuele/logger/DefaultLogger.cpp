@@ -33,11 +33,11 @@ DefaultLogger::DefaultLogger() :
 DefaultLogger::~DefaultLogger() {
 }
 
-void DefaultLogger::log(int iLevel, const std::string& iLocation, const std::string& iMessage, ...) {
+void DefaultLogger::log(int iLevel, const std::string& iLocation, const char * iMessage, ...) {
     char aBuffer[BUFFER_SIZE + 1] = { 0 };
     va_list argptr;
     va_start(argptr, iMessage);
-    vsprintf(aBuffer, iMessage.c_str(), argptr);
+    vsprintf(aBuffer, iMessage, argptr);
     std::cerr << logStringMap[iLevel] << " | " << iLocation << " | " << aBuffer << std::endl;
 }
 

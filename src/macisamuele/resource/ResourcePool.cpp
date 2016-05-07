@@ -7,6 +7,7 @@
 
 #include "ResourcePool.h"
 #include "../logger/DefaultLogger.h"
+#include "ResourceUnavailable.h"
 
 namespace macisamuele {
 namespace Resource {
@@ -35,11 +36,11 @@ ResourcePoolStats ResourcePool::getStatistics() {
 }
 
 ResourcePool::ResourcePool(size_t iPoolSize, const ResourceFactorySP& iFactory) :
-        poolSize(iPoolSize), factory(iFactory), instantiatedResources(0), logger(Logger::Logger::GetLogger<Logger::DefaultLogger>()) {
+        factory(iFactory), poolSize(iPoolSize), instantiatedResources(0), logger(Logger::Logger::GetLogger<Logger::DefaultLogger>()) {
 }
 
 ResourcePool::ResourcePool(const Logger::LoggerSP& iLogger, size_t iPoolSize, const ResourceFactorySP& iFactory) :
-        poolSize(iPoolSize), factory(iFactory), instantiatedResources(0), logger(iLogger) {
+        factory(iFactory), poolSize(iPoolSize), instantiatedResources(0), logger(iLogger) {
 }
 
 ResourcePool::~ResourcePool() { // no need to do nothing because the shared_ptr will delete all the pointers

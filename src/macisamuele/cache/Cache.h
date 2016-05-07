@@ -8,7 +8,7 @@
 #ifndef CACHE_CACHE_H_
 #define CACHE_CACHE_H_
 
-#include <stdexcept>        // for std::runtime_error definition
+#include <stdexcept>                // for std::runtime_error definition
 
 namespace macisamuele {
 namespace Cache {

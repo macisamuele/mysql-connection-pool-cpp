@@ -8,8 +8,9 @@
 #ifndef MYSQL_MYSQLINTERFACE_H_
 #define MYSQL_MYSQLINTERFACE_H_
 
-#include <vector>                   // for std::vector definition
-#include <cppconn/resultset.h>      // for sql::ResultSet definition
+#include <vector>                           // for std::vector definition
+#include <cppconn/resultset.h>              // for sql::ResultSet definition
+#include "../resource/ResourceInterface.h"  // for ResoureInterface definition
 
 namespace macisamuele {
 namespace MySQL {

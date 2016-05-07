@@ -22,7 +22,7 @@ class DefaultLogger : public Logger {
 public:
     DefaultLogger();
     virtual ~DefaultLogger();
-    void log(int iLevel, const std::string& iLocation, const std::string& iMessage, ...);
+    void log(int iLevel, const std::string& iLocation, const char * iMessage, ...);
 private:
     std::map<int, std::string> logStringMap;
 
