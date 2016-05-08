@@ -34,13 +34,13 @@ public:
     MySqlConnection(const MySqlCacheSP& iMySqlCache, const MySqlConfig& iConfiguration);
     MySqlConnection(const Logger::LoggerSP& iLogger, const MySqlCacheSP& iMySqlCache, const MySqlConfig& iConfiguration);
     ~MySqlConnection();
-    macisamuele::Resource::ResourceSP create();
-    bool isStatementCached(const std::string& iName);
-    bool cacheStatement(const std::string& iName, sql::PreparedStatement* iPreparedStatement);
-    bool cacheStatement(const std::string& iName, const PreparedStatementSP iPreparedStatement);
-    PreparedStatementSP getStatement(const std::string& iName);
-    bool isValid();
-
+    virtual macisamuele::Resource::ResourceSP create();
+    virtual bool isStatementCached(const std::string& iName);
+    virtual bool cacheStatement(const std::string& iName, sql::PreparedStatement* iPreparedStatement);
+    virtual bool cacheStatement(const std::string& iName, const PreparedStatementSP iPreparedStatement);
+    virtual PreparedStatementSP getStatement(const std::string& iName);
+    virtual bool isValid();
+    virtual ConnectionSP getConnection();
 protected:
     const MySqlConfig configuration;
 
@@ -57,7 +57,6 @@ protected:
      */
     MySqlCacheSP statementCache;
 
-private:
     Logger::LoggerSP logger;
 };
 

@@ -26,6 +26,7 @@ std::map<int, std::string> initLogStringMap() {
     aMap[LOG_NOTICE] = "NOTICE";
     aMap[LOG_INFO] = "INFO";
     aMap[LOG_DEBUG] = "DEBUG";
+    aMap[LOG_TRACE] = "TRACE";
     return aMap;
 }
 

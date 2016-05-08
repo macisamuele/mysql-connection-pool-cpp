@@ -12,22 +12,22 @@
 #include "../src/macisamuele/mysql/MySqlConfig.h"           // for MySqlConfig definition
 #include "ConcreteMySqlConnection.h"                        // for ConcreteMySqlConnection definition
 
-namespace test {
 namespace macisamuele {
-namespace Resource {
 
 class ConcreteMySqlPool: public ::macisamuele::Resource::ResourcePool {
 public:
     ConcreteMySqlPool(size_t iPoolSize, const ::macisamuele::MySQL::MySqlConfig& iConfiguration) :
-        ::macisamuele::Resource::ResourcePool(iPoolSize, ConcreteMySqlConnection::GetFactory(iConfiguration)) { //eventually pass a specific Orange::Logger (shared pointer)
+            Resource::ResourcePool(iPoolSize, ConcreteMySqlConnection::GetFactory(iConfiguration)) { //eventually pass a specific Orange::Logger (shared pointer)
     }
 
     virtual ~ConcreteMySqlPool() {
     }
+
+    ConcreteMySqlConnectionSP acquireConnection() {
+        return boost::dynamic_pointer_cast<ConcreteMySqlConnection>(::macisamuele::Resource::ResourcePool::acquire());
+    }
 };
 
-} /* namespace Resource */
 } /* namespace macisamuele */
-} /* namespace test */
 
 #endif /* TEST_CONCRETEMYSQLPOOL_H_ */

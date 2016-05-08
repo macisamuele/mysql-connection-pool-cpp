@@ -11,6 +11,8 @@
 #include <vector>                           // for std::vector definition
 #include <cppconn/resultset.h>              // for sql::ResultSet definition
 #include "../resource/ResourceInterface.h"  // for ResoureInterface definition
+#include "MySqlConnection.h"                // for MySqlConnection definition
+#include "../logger/Logger.h"               // for Logger definition
 
 namespace macisamuele {
 namespace MySQL {
@@ -19,10 +21,18 @@ typedef std::pair<std::string, int> ColumnNameIndex;
 typedef std::map<std::string, std::string> ResultMap;
 
 class MySqlInterface: public Resource::ResourceInterface {
+private:
+    MySqlConnectionSP connection;
+
+public:
+    MySqlInterface(const MySqlConnectionSP& iConnection);
+    MySqlInterface(const Logger::LoggerSP& iLogger, const MySqlConnectionSP& iConnection);
+
     /**
      * Utilities required for the management of the resource pool and conversions utilities
      */
 protected:
+    Logger::LoggerSP logger;
     /**
      * Extracts from the result set the associations between the column name and the column index
      */
@@ -52,6 +62,10 @@ protected:
      * The output storage is represented by the oOutput vector (it is cleaned if iClearVector is set to true).
      */
     static void ResultSetToVector(sql::ResultSet* iResultSet, std::vector<ResultMap>& oOutput, bool iClearVector = true);
+
+    MySqlConnectionSP getConnection() {
+        return connection;
+    }
 };
 
 } /* namespace MySQL */

@@ -7,6 +7,7 @@
 
 #include "MySqlInterface.h"
 #include <cppconn/resultset_metadata.h>     // for sql::ResultSetMetaData definition
+#include "../logger/StderrLogger.h"         // for StderrLogger definition
 
 // check the general validity of a result set
 #define assert_valid_result_set(iResultSet)    \
@@ -18,13 +19,22 @@
 namespace macisamuele {
 namespace MySQL {
 
+MySqlInterface::MySqlInterface(const MySqlConnectionSP& iConnection) :
+        connection(iConnection), logger(Logger::Logger::GetLogger<Logger::StderrLogger>()) {
+}
+
+MySqlInterface::MySqlInterface(const Logger::LoggerSP& iLogger, const MySqlConnectionSP& iConnection) :
+        connection(iConnection), logger(iLogger) {
+
+}
+
 std::vector<ColumnNameIndex> MySqlInterface::GetColumnIndexes(sql::ResultSet* iResultSet) {
     assert_valid_result_set(iResultSet);
     sql::ResultSetMetaData *aMetadata = iResultSet->getMetaData();
     std::vector<ColumnNameIndex> aColumnIndexes;
     int aColumnCount = aMetadata->getColumnCount();
-    for (int i = 0; i < aColumnCount; i++) {
-        ColumnNameIndex aPair(aMetadata->getCatalogName(i), i);
+    for (int i = 1; i <= aColumnCount; i++) {
+        ColumnNameIndex aPair(aMetadata->getColumnName(i), i);
         aColumnIndexes.push_back(aPair);
     }
     return aColumnIndexes;

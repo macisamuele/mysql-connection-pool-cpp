@@ -15,6 +15,10 @@
 
 #define AT __FILE__ ":" BOOST_PP_STRINGIZE(__LINE__)
 
+#ifndef LOG_TRACE
+#   define LOG_TRACE 8 //LOG_DEBUG+1
+#endif
+
 #ifndef LLOG_EMERG
 #   define LLOG_EMERG LOG_EMERG, AT
 #endif /* LLOG_EMERG */
@@ -39,6 +43,9 @@
 #ifndef LLOG_DEBUG
 #   define LLOG_DEBUG LOG_DEBUG, AT
 #endif /* LLOG_DEBUG */
+#ifndef LLOG_TRACE
+#   define LLOG_TRACE LOG_TRACE, AT
+#endif /* LLOG_TRACE */
 
 namespace macisamuele {
 namespace Logger {

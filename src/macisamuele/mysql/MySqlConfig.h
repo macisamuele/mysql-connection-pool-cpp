@@ -20,15 +20,16 @@ protected:
     unsigned int port;
     std::string username;
     std::string password;
+    std::string schema;
 
 public:
 
     MySqlConfig() :
-            host("localhost"), port(3306), username("root"), password("") {
+            host("localhost"), port(3306), username("root"), password("root"), schema("information_schema") {
     }
 
-    MySqlConfig(const std::string& iHost, unsigned int iPort, const std::string& iUsername, const std::string& iPassword) :
-            host(iHost), port(iPort), username(iUsername), password(iPassword) {
+    MySqlConfig(const std::string& iHost, unsigned int iPort, const std::string& iUsername, const std::string& iPassword, const std::string& iSchema) :
+            host(iHost), port(iPort), username(iUsername), password(iPassword), schema(iSchema) {
     }
 
     MySqlConfig& operator=(const MySqlConfig& iConfiguration) {
@@ -36,6 +37,7 @@ public:
         this->port = iConfiguration.port;
         this->username = iConfiguration.username;
         this->password = iConfiguration.password;
+        this->schema = iConfiguration.schema;
         return *(this);
     }
 
@@ -49,6 +51,10 @@ public:
 
     std::string getPassword() const {
         return password;
+    }
+
+    std::string getSchema() const {
+        return schema;
     }
 };
 SP_TYPE(MySqlConfig);

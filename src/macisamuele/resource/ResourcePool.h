@@ -29,7 +29,7 @@ public:
     ResourcePool(size_t iPoolSize, const ResourceFactorySP& iFactory);
     ResourcePool(const Logger::LoggerSP& iLogger, size_t iPoolSize, const ResourceFactorySP& iFactory);
 
-    ~ResourcePool();
+    virtual ~ResourcePool();
 
     /**
      * Acquire a resource for a temporary use
@@ -41,7 +41,7 @@ public:
      * @throws ResourceUnavailable if is not possible to allocate a new resource
      * @returns a boost::shared_ptr to the resource
      */
-    ResourceSP acquire();
+    virtual ResourceSP acquire();
 
     /**
      * Release a connection

@@ -36,7 +36,7 @@ AC_TYPE_SIZE_T
 
 AC_CONFIG_FILES([Makefile
   src/Makefile src/macisamuele/Makefile
-  test/Makefile
+  test/Makefile test/macisamuele/Makefile
 ])
 
 AC_OUTPUT
