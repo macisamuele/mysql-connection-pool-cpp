@@ -26,3 +26,32 @@
 *.exe
 *.out
 *.app
+
+# Eclipse Project Files
+.cproject
+.project
+.settings/
+Default/
+
+# Makefile and Autotool files
+Makefile
+Makefile.in
+aclocal.m4
+autom4te.cache/
+config.h.in
+configure
+ltmain.sh
+config.guess
+config.h
+config.log
+config.status
+config.sub
+depcomp
+install-sh
+libtool
+missing
+.deps/
+.dirstamp
+.libs/
+stamp-h1
+

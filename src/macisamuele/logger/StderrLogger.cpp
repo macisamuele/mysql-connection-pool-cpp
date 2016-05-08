@@ -1,12 +1,14 @@
 /*
- * DefaultLogger.cpp
+ * StderrLogger.cpp
  *
  *  Created on: May 7, 2016
  *      Author: samuele
  */
 
-#include "DefaultLogger.h"
+#include "StderrLogger.h"
 #include <iostream>         // for printing on the stderr
+#include <cstdarg>          // for va_list definition
+#include <cstdio>           // for vsprintf definition
 
 #define BUFFER_SIZE 4096
 
@@ -26,14 +28,14 @@ std::map<int, std::string> initLogStringMap() {
     return aMap;
 }
 
-DefaultLogger::DefaultLogger() :
+StderrLogger::StderrLogger() :
         logStringMap(initLogStringMap()) {
 }
 
-DefaultLogger::~DefaultLogger() {
+StderrLogger::~StderrLogger() {
 }
 
-void DefaultLogger::log(int iLevel, const std::string& iLocation, const char * iMessage, ...) {
+void StderrLogger::log(int iLevel, const std::string& iLocation, const char * iMessage, ...) {
     char aBuffer[BUFFER_SIZE + 1] = { 0 };
     va_list argptr;
     va_start(argptr, iMessage);

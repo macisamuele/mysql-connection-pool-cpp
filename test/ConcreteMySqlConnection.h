@@ -29,7 +29,7 @@ public:
     }
 
     static ::macisamuele::Resource::ResourceFactorySP GetFactory(const ::macisamuele::MySQL::MySqlConfig& iConfiguration) {
-        return boost::shared_ptr<::macisamuele::Resource::ResourceFactory>(new ConcreteMySqlConnection(iConfiguration));
+        return boost::shared_ptr< ::macisamuele::Resource::ResourceFactory>(new ConcreteMySqlConnection(iConfiguration));
     }
 private:
     ::macisamuele::Resource::ResourceInterfaceSP resourceInterface; //TODO: how to manage the resource interface?

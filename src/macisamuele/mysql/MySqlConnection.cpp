@@ -10,7 +10,7 @@
 #include <cppconn/driver.h>                     // for sql::Driver definition
 #include "../cache/LruCache.h"                  // for LruCache definition
 #include "../resource/ResourceUnavailable.h"    // for Resource Unavailable definition
-#include "../logger/DefaultLogger.h"            // for DefaultLogger definition
+#include "../logger/StderrLogger.h"            // for StderrLogger definition
 
 namespace macisamuele {
 namespace MySQL {
@@ -22,10 +22,10 @@ typedef Cache::Cache<std::string, PreparedStatementSP> MySqlCache;
 SP_TYPE(MySqlCache);
 
 MySqlConnection::MySqlConnection(const MySqlConfig& iConfiguration) :
-        configuration(iConfiguration), statementCache(new Cache::LruCache<std::string, PreparedStatementSP>(10)), logger(Logger::Logger::GetLogger<Logger::DefaultLogger>()) {
+        configuration(iConfiguration), statementCache(new Cache::LruCache<std::string, PreparedStatementSP>(10)), logger(Logger::Logger::GetLogger<Logger::StderrLogger>()) {
 }
 MySqlConnection::MySqlConnection(const MySqlCacheSP& iMySqlCache, const MySqlConfig& iConfiguration) :
-        configuration(iConfiguration), statementCache(iMySqlCache), logger(Logger::Logger::GetLogger<Logger::DefaultLogger>()) {
+        configuration(iConfiguration), statementCache(iMySqlCache), logger(Logger::Logger::GetLogger<Logger::StderrLogger>()) {
 }
 MySqlConnection::MySqlConnection(const Logger::LoggerSP& iLogger, const MySqlCacheSP& iMySqlCache, const MySqlConfig& iConfiguration) :
         configuration(iConfiguration), statementCache(iMySqlCache), logger(iLogger) {

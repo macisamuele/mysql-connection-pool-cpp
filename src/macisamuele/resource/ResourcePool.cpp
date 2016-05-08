@@ -6,7 +6,7 @@
  */
 
 #include "ResourcePool.h"
-#include "../logger/DefaultLogger.h"
+#include "../logger/StderrLogger.h"
 #include "ResourceUnavailable.h"
 
 namespace macisamuele {
@@ -36,7 +36,7 @@ ResourcePoolStats ResourcePool::getStatistics() {
 }
 
 ResourcePool::ResourcePool(size_t iPoolSize, const ResourceFactorySP& iFactory) :
-        factory(iFactory), poolSize(iPoolSize), instantiatedResources(0), logger(Logger::Logger::GetLogger<Logger::DefaultLogger>()) {
+        factory(iFactory), poolSize(iPoolSize), instantiatedResources(0), logger(Logger::Logger::GetLogger<Logger::StderrLogger>()) {
 }
 
 ResourcePool::ResourcePool(const Logger::LoggerSP& iLogger, size_t iPoolSize, const ResourceFactorySP& iFactory) :

@@ -8,8 +8,9 @@
 #ifndef TEST_CONCRETEMYSQLPOOL_H_
 #define TEST_CONCRETEMYSQLPOOL_H_
 
-#include "../src/macisamuele/resource/ResourcePool.h"
-#include "../src/macisamuele/mysql/MySqlConfig.h"
+#include "../src/macisamuele/resource/ResourcePool.h"       // for ResourcePool definition
+#include "../src/macisamuele/mysql/MySqlConfig.h"           // for MySqlConfig definition
+#include "ConcreteMySqlConnection.h"                        // for ConcreteMySqlConnection definition
 
 namespace test {
 namespace macisamuele {

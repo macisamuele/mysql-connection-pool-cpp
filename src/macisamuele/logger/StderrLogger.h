@@ -1,5 +1,5 @@
 /*
- * DefaultLogger.h
+ * StderrLogger.h
  *
  *  Created on: May 7, 2016
  *      Author: samuele
@@ -18,17 +18,17 @@ namespace Logger {
 /*
  * Concrete implementation of a logger which propagates the information on the stderr stream
  */
-class DefaultLogger : public Logger {
+class StderrLogger : public Logger {
 public:
-    DefaultLogger();
-    virtual ~DefaultLogger();
+    StderrLogger();
+    virtual ~StderrLogger();
     void log(int iLevel, const std::string& iLocation, const char * iMessage, ...);
 private:
     std::map<int, std::string> logStringMap;
 
 };
 
-SP_TYPE(DefaultLogger);
+SP_TYPE(StderrLogger);
 
 } /* namespace Logger */
 } /* namespace macisamuele */
