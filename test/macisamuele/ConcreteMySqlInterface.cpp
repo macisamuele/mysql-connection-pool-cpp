@@ -39,46 +39,40 @@ using namespace sql;
 
 namespace macisamuele {
 
-ConcreteMySqlInterface::ConcreteMySqlInterface(
-		const MySQL::MySqlConnectionSP& iConnection) :
-		MySqlInterface(iConnection) {
+ConcreteMySqlInterface::ConcreteMySqlInterface(const MySQL::MySqlConnectionSP& iConnection) :
+        MySqlInterface(iConnection) {
 }
 
 ConcreteMySqlInterface::~ConcreteMySqlInterface() {
 }
 
 bool ConcreteMySqlInterface::getTables(vector<string>& oList) {
-	string aQuery;
-	try {
-		initialize_prepared_statement(
-				"SELECT CONCAT(TABLE_SCHEMA, '.', TABLE_NAME) AS TABLES FROM TABLES;",
-				aPStatement, aQuery);
-		aPStatement->execute();
+    string aQuery;
+    try {
+        initialize_prepared_statement("SELECT CONCAT(TABLE_SCHEMA, '.', TABLE_NAME) AS TABLES FROM TABLES;", aPStatement, aQuery);
+        aPStatement->execute();
 
-		ResultSet* aResultSet = aPStatement->getResultSet();
-		if (aResultSet == NULL || !aResultSet->next()) {
-			logger->log(LLOG_WARNING, "Empty Result Set for the query: %s", aQuery.c_str());
-			return false;
-		}
+        ResultSet* aResultSet = aPStatement->getResultSet();
+        if (aResultSet == NULL || !aResultSet->next()) {
+            logger->log(LLOG_WARNING, "Empty Result Set for the query: %s", aQuery.c_str());
+            return false;
+        }
 
-		vector<MySQL::ResultMap> aResult;
-		ResultSetToVector(aResultSet, aResult);
+        vector<MySQL::ResultMap> aResult;
+        ResultSetToVector(aResultSet, aResult);
 
-		for(vector<MySQL::ResultMap>::iterator it = aResult.begin(); it != aResult.end(); it++) {
-			oList.push_back((*it).find("TABLES")->second);
-		}
+        for (vector<MySQL::ResultMap>::iterator it = aResult.begin(); it != aResult.end(); it++) {
+            oList.push_back((*it).find("TABLES")->second);
+        }
 
-		aResultSet->close();
-		delete aResultSet;
+        aResultSet->close();
+        delete aResultSet;
 
-		return true;
-	} catch (const sql::SQLException& aException) {
-		logger->log(LLOG_WARNING,
-				"SQLException: Query: %s Error[%s] ErrorCode[%d] State[%s]",
-				aQuery.c_str(), aException.what(), aException.getErrorCode(),
-				aException.getSQLStateCStr());
-	}
-	return false;
+        return true;
+    } catch (const sql::SQLException& aException) {
+        logger->log(LLOG_WARNING, "SQLException: Query: %s Error[%s] ErrorCode[%d] State[%s]", aQuery.c_str(), aException.what(), aException.getErrorCode(), aException.getSQLStateCStr());
+    }
+    return false;
 }
 
 } /* namespace macisamuele */

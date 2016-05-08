@@ -24,19 +24,19 @@ SP_TYPE(MySqlCache);
 
 MySqlConnection::MySqlConnection(const MySqlConfig& iConfiguration) :
         configuration(iConfiguration), statementCache(new Cache::LruCache<std::string, PreparedStatementSP>(10)), logger(Logger::Logger::GetLogger<Logger::StderrLogger>()) {
-	logger->log(LLOG_TRACE, "MySqlConnection: Allocated New Object");
+    logger->log(LLOG_TRACE, "MySqlConnection: Allocated New Object");
 }
 MySqlConnection::MySqlConnection(const MySqlCacheSP& iMySqlCache, const MySqlConfig& iConfiguration) :
         configuration(iConfiguration), statementCache(iMySqlCache), logger(Logger::Logger::GetLogger<Logger::StderrLogger>()) {
-	logger->log(LLOG_TRACE, "MySqlConnection: Allocated New Object");
+    logger->log(LLOG_TRACE, "MySqlConnection: Allocated New Object");
 }
 MySqlConnection::MySqlConnection(const Logger::LoggerSP& iLogger, const MySqlCacheSP& iMySqlCache, const MySqlConfig& iConfiguration) :
         configuration(iConfiguration), statementCache(iMySqlCache), logger(iLogger) {
-	logger->log(LLOG_TRACE, "MySqlConnection: Allocated New Object");
+    logger->log(LLOG_TRACE, "MySqlConnection: Allocated New Object");
 }
 
 MySqlConnection::~MySqlConnection() {
-	logger->log(LLOG_TRACE, "MySqlConnection: Release Memory");
+    logger->log(LLOG_TRACE, "MySqlConnection: Release Memory");
     if (isValid()) {
         this->connection->close();
     }
