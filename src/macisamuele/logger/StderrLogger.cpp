@@ -6,9 +6,10 @@
  */
 
 #include "StderrLogger.h"
-#include <iostream>         // for printing on the stderr
-#include <cstdarg>          // for va_list definition
-#include <cstdio>           // for vsprintf definition
+#include <iostream>                                     // for printing on the stderr
+#include <cstdarg>                                      // for va_list definition
+#include <cstdio>                                       // for vsprintf definition
+#include <boost/date_time/posix_time/posix_time.hpp>    // for posix_time definition
 
 #define BUFFER_SIZE 4096
 
@@ -40,7 +41,7 @@ void StderrLogger::log(int iLevel, const std::string& iLocation, const char * iM
     va_list argptr;
     va_start(argptr, iMessage);
     vsprintf(aBuffer, iMessage, argptr);
-    std::cerr << logStringMap[iLevel] << " | " << iLocation << " | " << aBuffer << std::endl;
+    std::cerr << boost::posix_time::microsec_clock::local_time() << " | " << logStringMap[iLevel] << " | " << iLocation << " | " << aBuffer << std::endl;
 }
 
 } /* namespace Logger */

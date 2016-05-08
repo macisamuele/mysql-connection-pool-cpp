@@ -32,17 +32,19 @@ MySqlConnection::MySqlConnection(const Logger::LoggerSP& iLogger, const MySqlCac
 }
 
 MySqlConnection::~MySqlConnection() {
-    if (!this->connection->isClosed()) {
+    if (isValid()) {
         this->connection->close();
     }
 }
 
 macisamuele::Resource::ResourceSP MySqlConnection::create() {
     //WARNING: the method is not thread safe!
+    this->logger->log(LLOG_ERR, "AA");
     sql::Connection *connection = get_driver_instance()->connect(configuration.getServer(), configuration.getUsername(), configuration.getPassword());
     if (connection == NULL) {
         throw macisamuele::Resource::ResourceUnavailable("MySQL Connection Error");
     }
+    this->logger->log(LLOG_ERR, "AA");
     this->connection = boost::shared_ptr<sql::Connection>(connection);
     return boost::static_pointer_cast<MySqlConnection>(boost::shared_ptr<MySqlConnection>(this));
 }
@@ -65,7 +67,7 @@ PreparedStatementSP MySqlConnection::getStatement(const std::string& iName) {
 }
 
 bool MySqlConnection::isValid() {
-    return !this->connection->isClosed();
+    return this->connection && !this->connection->isClosed();
 }
 
 } /* namespace MySQL */

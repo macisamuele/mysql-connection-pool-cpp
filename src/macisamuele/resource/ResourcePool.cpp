@@ -51,10 +51,10 @@ ResourceSP ResourcePool::acquire() {
     // Lock the modification of the resources
     ResourceSP aResourceSP;
     if (this->instantiatedResources != this->poolSize) { // is possible to allocate a new resource
-        this->logger->log(LLOG_INFO, "Allocated a new resource.");
         aResourceSP = this->factory->create();
         this->instantiatedResources++;
         this->aquiredResources.insert(aResourceSP);
+        this->logger->log(LLOG_INFO, "Allocated a new resource [currently %d allocated]", this->instantiatedResources);
     } else if (this->resourcePool.size() > 0) { // there are available connections
         ResourceSP aResource = this->resourcePool.front();
         this->resourcePool.pop_front();
@@ -75,6 +75,7 @@ void ResourcePool::release(ResourceSP iResourceSP) {
     SCOPED_LOCK(aLock);
     // Lock the modification of the resources
     if (this->aquiredResources.erase(iResourceSP) > 0) {
+        this->logger->log(LLOG_DEBUG, "Released a resource");
         // if no resources are deleted it means that the resources was no part of the current pool
         this->resourcePool.push_back(iResourceSP);
     }

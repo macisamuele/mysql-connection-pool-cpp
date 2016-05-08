@@ -13,7 +13,7 @@
 
 namespace test {
 namespace macisamuele {
-namespace resource {
+namespace Resource {
 
 class ConcreteMySqlConnection: public ::macisamuele::MySQL::MySqlConnection {
 public:
@@ -35,7 +35,7 @@ private:
     ::macisamuele::Resource::ResourceInterfaceSP resourceInterface; //TODO: how to manage the resource interface?
 };
 
-} /* namespace resource */
+} /* namespace Resource */
 } /* namespace macisamuele */
 } /* namespace test */
 

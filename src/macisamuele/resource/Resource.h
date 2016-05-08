@@ -28,5 +28,4 @@ SP_TYPE(Resource);
 } /* namespace Resource */
 } /* namespace macisamuele */
 
-
 #endif /* RESOURCE_RESOURCE_H_ */

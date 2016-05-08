@@ -32,13 +32,14 @@ private:
     virtual void updateUse(const CacheKey& iKey) {
         CacheKeyIterator aIterator;
         // aDequeIterator will never be orderedMemory.end() since the key is present on the cacheMemory
-        for(aIterator = orderedMemory.begin(); *aIterator != iKey; aIterator++) {
+        for (aIterator = orderedMemory.begin(); *aIterator != iKey; aIterator++) {
         }
         orderedMemory.erase(aIterator);
         orderedMemory.push_front(iKey);
     }
 public:
-    LruCache(size_t iSize) : size(iSize) {
+    LruCache(size_t iSize) :
+            size(iSize) {
     }
 
     virtual ~LruCache() {
@@ -49,7 +50,7 @@ public:
     }
 
     virtual bool tryGetEntry(const CacheKey& iKey, CachedType& oValue) {
-        if(!isInCache(iKey)) {
+        if (!isInCache(iKey)) {
             return false;
         }
         updateUse(iKey);
@@ -58,11 +59,11 @@ public:
     }
 
     virtual void insert(const CacheKey& iKey, const CachedType& iValue) {
-        if(isInCache(iKey)) {   // if the key is in cache the value should be updated and moved in the most recently used
+        if (isInCache(iKey)) {   // if the key is in cache the value should be updated and moved in the most recently used
             cacheMemory[iKey] = iValue;
             updateUse(iKey);
         } else {
-            if(cacheMemory.size() == size) { // if the cache is full the least element will be deleted
+            if (cacheMemory.size() == size) { // if the cache is full the least element will be deleted
                 CacheKey aKey = orderedMemory.back();
                 orderedMemory.pop_back();
                 cacheMemory.erase(cacheMemory.find(aKey));

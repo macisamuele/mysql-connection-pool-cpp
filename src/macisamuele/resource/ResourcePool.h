@@ -20,7 +20,6 @@
 namespace macisamuele {
 namespace Resource {
 
-
 class ResourcePool {
 public:
     size_t getResourcesAcquired();
@@ -28,8 +27,7 @@ public:
     size_t getPoolSize();
     ResourcePoolStats getStatistics();
     ResourcePool(size_t iPoolSize, const ResourceFactorySP& iFactory);
-    ResourcePool(const Logger::LoggerSP& iLogger, size_t iPoolSize,
-            const ResourceFactorySP& iFactory);
+    ResourcePool(const Logger::LoggerSP& iLogger, size_t iPoolSize, const ResourceFactorySP& iFactory);
 
     ~ResourcePool();
 

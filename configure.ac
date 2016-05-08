@@ -27,15 +27,17 @@ AC_CHECK_HEADER([boost/shared_ptr.hpp], [],
   [AC_MSG_ERROR([Could not find the boost/shared_ptr.hpp BOOST header])])
 AC_CHECK_HEADER([boost/thread/mutex.hpp], [],
   [AC_MSG_ERROR([Could not find the boost/thread/mutex.hpp BOOST header])])
-
+AC_CHECK_HEADER([boost/date_time/posix_time/posix_time.hpp], [],
+  [AC_MSG_ERROR([Could not find the boost/date_time/posix_time/posix_time.hpp BOOST header])])
 
 
 AC_HEADER_STDBOOL
 AC_TYPE_SIZE_T
 
 AC_CONFIG_FILES([Makefile
-src/Makefile src/macisamuele/Makefile
-test/Makefile
+  src/Makefile src/macisamuele/Makefile
+  test/Makefile
 ])
+
 AC_OUTPUT
 

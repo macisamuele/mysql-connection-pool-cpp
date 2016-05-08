@@ -23,11 +23,12 @@ protected:
 
 public:
 
-    MySqlConfig() :  host("localhost"), port(3306), username("root"), password("") {
+    MySqlConfig() :
+            host("localhost"), port(3306), username("root"), password("") {
     }
 
     MySqlConfig(const std::string& iHost, unsigned int iPort, const std::string& iUsername, const std::string& iPassword) :
-        host(iHost), port(iPort), username(iUsername), password(iPassword) {
+            host(iHost), port(iPort), username(iUsername), password(iPassword) {
     }
 
     MySqlConfig& operator=(const MySqlConfig& iConfiguration) {

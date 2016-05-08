@@ -14,7 +14,7 @@
 
 namespace test {
 namespace macisamuele {
-namespace resource {
+namespace Resource {
 
 class ConcreteMySqlPool: public ::macisamuele::Resource::ResourcePool {
 public:
@@ -26,7 +26,7 @@ public:
     }
 };
 
-} /* namespace resource */
+} /* namespace Resource */
 } /* namespace macisamuele */
 } /* namespace test */
 

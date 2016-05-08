@@ -18,7 +18,7 @@ namespace Logger {
 /*
  * Concrete implementation of a logger which propagates the information on the stderr stream
  */
-class StderrLogger : public Logger {
+class StderrLogger: public Logger {
 public:
     StderrLogger();
     virtual ~StderrLogger();

@@ -13,11 +13,13 @@
 namespace macisamuele {
 namespace Cache {
 
-class KeyMiss : public std::runtime_error {
+class KeyMiss: public std::runtime_error {
 public:
-    KeyMiss() : std::runtime_error("Key Not Found") {
+    KeyMiss() :
+            std::runtime_error("Key Not Found") {
     }
-    KeyMiss(const std::string& iMessage) : std::runtime_error(iMessage) {
+    KeyMiss(const std::string& iMessage) :
+            std::runtime_error(iMessage) {
     }
 };
 
@@ -58,7 +60,7 @@ public:
      */
     virtual CachedType getEntry(const CacheKey& iKey) {
         CachedType aCachedObject;
-        if(!tryGetEntry(iKey, aCachedObject)) {
+        if (!tryGetEntry(iKey, aCachedObject)) {
             throw KeyMiss();
         }
         return aCachedObject;
