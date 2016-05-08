@@ -5,7 +5,7 @@
  *      Author: samuele
  */
 
-#include "MySqlConnector.h"
+#include "MySqlConnection.h"
 
 #include <cppconn/driver.h>                     // for sql::Driver definition
 #include "../cache/LruCache.h"                  // for LruCache definition
