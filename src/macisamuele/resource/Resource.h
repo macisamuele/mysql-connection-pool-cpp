@@ -10,6 +10,7 @@
 
 #include "ResourceInterface.h"          // for ResourceInterface definition
 #include "../TypenameDefinitions.h"     // for SP typed definition
+#include "../MemoryTracer.h"            // for memory tracing macros definition
 
 namespace macisamuele {
 namespace Resource {
@@ -18,6 +19,7 @@ class Resource {
 
 public:
     virtual ~Resource() {
+        DESTRUCTOR(this);
     }
     virtual bool isValid() = 0;
     virtual ResourceInterfaceSP getResourceInterface() = 0;

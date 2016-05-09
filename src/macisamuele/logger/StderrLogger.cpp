@@ -32,9 +32,11 @@ std::map<int, std::string> initLogStringMap() {
 
 StderrLogger::StderrLogger() :
         logStringMap(initLogStringMap()) {
+    CONSTRUCTOR(this);
 }
 
 StderrLogger::~StderrLogger() {
+    DESTRUCTOR(this);
 }
 
 void StderrLogger::log(int iLevel, const std::string& iLocation, const char * iMessage, ...) {

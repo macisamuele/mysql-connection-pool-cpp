@@ -13,6 +13,7 @@
 #include "../resource/ResourceInterface.h"  // for ResoureInterface definition
 #include "MySqlConnection.h"                // for MySqlConnection definition
 #include "../logger/Logger.h"               // for Logger definition
+#include "../MemoryTracer.h"                // for memory tracing macros definition
 
 namespace macisamuele {
 namespace MySQL {
@@ -27,6 +28,7 @@ private:
 public:
     MySqlInterface(const MySqlConnectionSP& iConnection);
     MySqlInterface(const Logger::LoggerSP& iLogger, const MySqlConnectionSP& iConnection);
+    virtual ~MySqlInterface();
 
     /**
      * Utilities required for the management of the resource pool and conversions utilities

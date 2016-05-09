@@ -12,6 +12,7 @@
 #include <syslog.h>                             // for LOG_* definition
 #include <boost/preprocessor/stringize.hpp>     // for toString on the preprocessor level
 #include "../TypenameDefinitions.h"             // for SP typed definition
+#include "../MemoryTracer.h"                    // for memory tracing macros definition
 
 #define AT __FILE__ ":" BOOST_PP_STRINGIZE(__LINE__)
 
@@ -56,6 +57,7 @@ namespace Logger {
 class Logger {
 public:
     virtual ~Logger() {
+        DESTRUCTOR(this);
     }
 
     /**

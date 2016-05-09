@@ -8,7 +8,8 @@
 #ifndef CACHE_CACHE_H_
 #define CACHE_CACHE_H_
 
-#include <stdexcept>                // for std::runtime_error definition
+#include <stdexcept>            // for std::runtime_error definition
+#include "../MemoryTracer.h"    // for memory tracing macros definition
 
 namespace macisamuele {
 namespace Cache {
@@ -17,9 +18,11 @@ class KeyMiss: public std::runtime_error {
 public:
     KeyMiss() :
             std::runtime_error("Key Not Found") {
+        CONSTRUCTOR(this);
     }
     KeyMiss(const std::string& iMessage) :
             std::runtime_error(iMessage) {
+        CONSTRUCTOR(this);
     }
 };
 
@@ -27,6 +30,7 @@ template<typename CacheKey, typename CachedType>
 class Cache {
 public:
     virtual ~Cache() {
+        DESTRUCTOR(this);
     }
 
     /**

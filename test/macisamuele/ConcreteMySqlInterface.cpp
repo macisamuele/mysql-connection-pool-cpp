@@ -6,9 +6,9 @@
  */
 
 #include "ConcreteMySqlInterface.h"
-#include <cppconn/exception.h>                             // for sql::Exception definition
-#include "../../src/macisamuele/mysql/MySqlConnection.h"   // for boost::shared_ptr<sql::XYZ> types
-#include <boost/preprocessor/cat.hpp>
+#include <cppconn/exception.h>                          // for sql::Exception definition
+#include "src/macisamuele/mysql/MySqlConnection.h"      // for boost::shared_ptr<sql::XYZ> types
+#include <boost/preprocessor/cat.hpp>                   // for string concatenation on preprocessor level
 
 using namespace macisamuele;
 using namespace std;
@@ -41,9 +41,11 @@ namespace macisamuele {
 
 ConcreteMySqlInterface::ConcreteMySqlInterface(const MySQL::MySqlConnectionSP& iConnection) :
         MySqlInterface(iConnection) {
+    CONSTRUCTOR(this);
 }
 
 ConcreteMySqlInterface::~ConcreteMySqlInterface() {
+    DESTRUCTOR(this);
 }
 
 bool ConcreteMySqlInterface::getTables(vector<string>& oList) {

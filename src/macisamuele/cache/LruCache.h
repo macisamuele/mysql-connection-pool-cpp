@@ -8,11 +8,12 @@
 #ifndef CACHE_LRUCACHE_H_
 #define CACHE_LRUCACHE_H_
 
-#include "Cache.h"          // for Cache definition
-#include <sys/types.h>      // for size_t definition
-#include <deque>            // for std::deque (queue) definition
-#include <map>              // for std::map definition
-#include <set>              // for std::set definition
+#include "Cache.h"              // for Cache definition
+#include <sys/types.h>          // for size_t definition
+#include <deque>                // for std::deque (queue) definition
+#include <map>                  // for std::map definition
+#include <set>                  // for std::set definition
+#include "../MemoryTracer.h"    // for memory tracing macros definition
 
 namespace macisamuele {
 namespace Cache {
@@ -40,9 +41,11 @@ private:
 public:
     LruCache(size_t iSize) :
             size(iSize) {
+        CONSTRUCTOR(this);
     }
 
     virtual ~LruCache() {
+        DESTRUCTOR(this);
     }
 
     virtual bool isInCache(const CacheKey& iKey) {

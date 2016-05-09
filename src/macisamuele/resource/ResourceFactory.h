@@ -10,6 +10,7 @@
 
 #include "Resource.h"                   // for Resource definition
 #include "../TypenameDefinitions.h"     // for SP typed definition
+#include "../MemoryTracer.h"            // for memory tracing macros definition
 
 namespace macisamuele {
 namespace Resource {
@@ -18,6 +19,7 @@ class ResourceFactory {
 
 public:
     virtual ~ResourceFactory() {
+        DESTRUCTOR(this);
     }
 
     virtual ResourceSP create()=0;

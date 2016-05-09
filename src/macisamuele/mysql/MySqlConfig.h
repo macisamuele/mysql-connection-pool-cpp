@@ -10,6 +10,7 @@
 
 #include "../TypenameDefinitions.h"     // for SP typed definition
 #include <boost/lexical_cast.hpp>       // for conversions (string - int)
+#include "../MemoryTracer.h"            // for memory tracing macros definition
 
 namespace macisamuele {
 namespace MySQL {
@@ -26,10 +27,16 @@ public:
 
     MySqlConfig() :
             host("localhost"), port(3306), username("root"), password("root"), schema("information_schema") {
+        CONSTRUCTOR(this);
     }
 
     MySqlConfig(const std::string& iHost, unsigned int iPort, const std::string& iUsername, const std::string& iPassword, const std::string& iSchema) :
             host(iHost), port(iPort), username(iUsername), password(iPassword), schema(iSchema) {
+        CONSTRUCTOR(this);
+    }
+
+    virtual ~MySqlConfig() {
+        DESTRUCTOR(this);
     }
 
     MySqlConfig& operator=(const MySqlConfig& iConfiguration) {
@@ -42,7 +49,7 @@ public:
     }
 
     std::string getServer() const {
-        return host + boost::lexical_cast<std::string>(port);
+        return host + ":" + boost::lexical_cast<std::string>(port);
     }
 
     std::string getUsername() const {

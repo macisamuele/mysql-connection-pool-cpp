@@ -11,9 +11,11 @@ namespace macisamuele {
 ConcreteMySqlConnection::ConcreteMySqlConnection(const MySQL::MySqlConfig& iMySqlConfig) :
         MySQL::MySqlConnection(iMySqlConfig) {
     resourceInterface = boost::shared_ptr<ConcreteMySqlInterface>(new ConcreteMySqlInterface(boost::shared_ptr<MySQL::MySqlConnection>(this)));
+    CONSTRUCTOR(this);
 }
 
 ConcreteMySqlConnection::~ConcreteMySqlConnection() {
+    DESTRUCTOR(this);
 }
 
 ::macisamuele::Resource::ResourceInterfaceSP ConcreteMySqlConnection::getResourceInterface() {

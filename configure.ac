@@ -15,12 +15,21 @@ AC_PROG_LIBTOOL
 LT_INIT
 AC_LANG_PUSH([C++])
 
+
+AC_ARG_WITH(memory-tracer,
+[AS_HELP_STRING(--with-memory-tracer,Extensive memory tracer logging on stderr)],
+[ if test "x$withval" != "xno" ; then
+    AC_DEFINE(MEMORY_TRACER_ON,,[enable memory tracing features])
+  fi ])
+
 AC_SEARCH_LIBS([strerror],[cposix])
 AC_CHECK_LIB(mysqlcppconn, get_driver_instance,
             [LIBS="$LIBS -lmysqlcppconn"],
             AC_MSG_ERROR(*** libmysqlcppconn not found))
 
 BOOST_REQUIRE([1.46])
+LIBS="$LIBS -lboost_system"
+
 AC_CHECK_HEADER([boost/lexical_cast.hpp], [],
   [AC_MSG_ERROR([Could not find the boost/lexical_cast.hpp BOOST header])])
 AC_CHECK_HEADER([boost/shared_ptr.hpp], [],

@@ -17,6 +17,7 @@
 #include "../cache/Cache.h"                     // for Cache definition
 #include "../logger/Logger.h"                   // for Logger definition
 #include "MySqlConfig.h"                        // for MySqlConfig definition
+#include "../MemoryTracer.h"                    // for memory tracing macros definition
 
 namespace macisamuele {
 namespace MySQL {
@@ -33,7 +34,7 @@ public:
     MySqlConnection(const MySqlConfig& iConfiguration);
     MySqlConnection(const MySqlCacheSP& iMySqlCache, const MySqlConfig& iConfiguration);
     MySqlConnection(const Logger::LoggerSP& iLogger, const MySqlCacheSP& iMySqlCache, const MySqlConfig& iConfiguration);
-    ~MySqlConnection();
+    virtual ~MySqlConnection();
     virtual macisamuele::Resource::ResourceSP create();
     virtual bool isStatementCached(const std::string& iName);
     virtual bool cacheStatement(const std::string& iName, sql::PreparedStatement* iPreparedStatement);

@@ -21,15 +21,19 @@ namespace MySQL {
 
 MySqlInterface::MySqlInterface(const MySqlConnectionSP& iConnection) :
         connection(iConnection), logger(Logger::Logger::GetLogger<Logger::StderrLogger>()) {
+    CONSTRUCTOR(this);
 }
 
 MySqlInterface::MySqlInterface(const Logger::LoggerSP& iLogger, const MySqlConnectionSP& iConnection) :
         connection(iConnection), logger(iLogger) {
-
+    CONSTRUCTOR(this);
 }
 
-std::vector<ColumnNameIndex> MySqlInterface::GetColumnIndexes(sql::ResultSet* iResultSet) {
-    assert_valid_result_set(iResultSet);
+MySqlInterface::~MySqlInterface(){
+    DESTRUCTOR(this);
+}
+
+std::vector<ColumnNameIndex> MySqlInterface::GetColumnIndexes(sql::ResultSet* iResultSet) {    assert_valid_result_set(iResultSet);
     sql::ResultSetMetaData *aMetadata = iResultSet->getMetaData();
     std::vector<ColumnNameIndex> aColumnIndexes;
     int aColumnCount = aMetadata->getColumnCount();

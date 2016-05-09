@@ -8,9 +8,10 @@
 #ifndef LOGGER_DEFAULTLOGGER_H_
 #define LOGGER_DEFAULTLOGGER_H_
 
-#include "Logger.h"         //for Logger definition
-#include <map>              // for std::map definition
-#include <string>           // for std::string definition
+#include "Logger.h"             //for Logger definition
+#include <map>                  // for std::map definition
+#include <string>               // for std::string definition
+#include "../MemoryTracer.h"    // for memory tracing macros definition
 
 namespace macisamuele {
 namespace Logger {

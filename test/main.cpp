@@ -14,10 +14,11 @@ int main() {
     vector<string> aTablesList;
     aConnectionSP->getInterface()->getTables(aTablesList);
     aPool.release(aConnectionSP);
-    cout << "Are available " << aTablesList.size() << " tables: " << endl;
-    for (vector<string>::iterator it = aTablesList.begin(); it != aTablesList.end(); it++) {
-        cout << "    " << *it << endl;
-    }
+//    cout << "Are available " << aTablesList.size() << " tables: " << endl;
+//    for (vector<string>::iterator it = aTablesList.begin(); it != aTablesList.end(); it++) {
+//        cout << "    " << *it << endl;
+//    }
+
 //    macisamuele::Resource::ResourceSP aResourceSP = aPool.acquire();
 //    macisamuele::Resource::ResourceInterfaceSP aResourceInterfaceSP = aResourceSP->getResourceInterface();
 //    macisamuele::Resource::ResourceSP aResourceSP = aPool.acquire();

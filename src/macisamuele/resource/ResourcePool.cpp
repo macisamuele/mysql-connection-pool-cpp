@@ -37,13 +37,16 @@ ResourcePoolStats ResourcePool::getStatistics() {
 
 ResourcePool::ResourcePool(size_t iPoolSize, const ResourceFactorySP& iFactory) :
         factory(iFactory), poolSize(iPoolSize), instantiatedResources(0), logger(Logger::Logger::GetLogger<Logger::StderrLogger>()) {
+    CONSTRUCTOR(this);
 }
 
 ResourcePool::ResourcePool(const Logger::LoggerSP& iLogger, size_t iPoolSize, const ResourceFactorySP& iFactory) :
         factory(iFactory), poolSize(iPoolSize), instantiatedResources(0), logger(iLogger) {
+    CONSTRUCTOR(this);
 }
 
 ResourcePool::~ResourcePool() { // no need to do nothing because the shared_ptr will delete all the pointers
+    DESTRUCTOR(this);
 }
 
 ResourceSP ResourcePool::acquire() {

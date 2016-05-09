@@ -8,10 +8,10 @@
 #ifndef TEST_MYSQLCONNETION_H_
 #define TEST_MYSQLCONNETION_H_
 
-#include "../../src/macisamuele/mysql/MySqlConnection.h"
-#include "../../src/macisamuele/resource/ResourceInterface.h"
-#include "../../src/macisamuele/resource/ResourceFactory.h"
-#include "ConcreteMySqlInterface.h"
+#include "ConcreteMySqlInterface.h"                       // for ConcreteMySqlInterface definition
+#include "src/macisamuele/mysql/MySqlConnection.h"        // for MySqlConnection definition
+#include "src/macisamuele/resource/ResourceFactory.h"     // for ResourceFactory, Resource and Resource Interface definition
+#include "src/macisamuele/MemoryTracer.h"                 // for memory tracing macros definition
 
 namespace macisamuele {
 
