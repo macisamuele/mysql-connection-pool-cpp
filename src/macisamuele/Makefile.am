@@ -7,7 +7,7 @@ libmysql_connection_pool_la_LDFLAGS = -version-info 1:0:0
 libmysql_connection_pool_la_SOURCES =       \
     logger/StderrLogger.cpp                 \
     mysql/MySqlConnection.cpp               \
-    mysql/MySqlInterface.cpp                \
+    mysql/MySqlUtilities.cpp                \
     resource/ResourcePool.cpp               \
     MemoryTracer.cpp
 
@@ -18,7 +18,7 @@ nobase_include_HEADERS =                    \
     logger/Logger.h                         \
     mysql/MySqlConfig.h                     \
     mysql/MySqlConnection.h                 \
-    mysql/MySqlInterface.h                  \
+    mysql/MySqlUtilities.h                  \
     resource/Resource.h                     \
     resource/ResourceFactory.h              \
     resource/ResourceInterface.h            \

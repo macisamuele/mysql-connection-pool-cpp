@@ -22,6 +22,12 @@ AC_ARG_WITH(memory-tracer,
     AC_DEFINE(MEMORY_TRACER_ON,,[enable memory tracing features])
   fi ])
 
+AC_ARG_WITH(query-profiler,
+[AS_HELP_STRING(--with-query-profiler,Profiling of the queries execution time)],
+[ if test "x$withval" != "xno" ; then
+    AC_DEFINE(QUERY_PROFILER_ON,,[enable query profiling feature])
+  fi ])
+
 AC_SEARCH_LIBS([strerror],[cposix])
 AC_CHECK_LIB(mysqlcppconn, get_driver_instance,
             [LIBS="$LIBS -lmysqlcppconn"],

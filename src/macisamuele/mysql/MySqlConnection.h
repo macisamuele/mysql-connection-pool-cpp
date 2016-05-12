@@ -12,12 +12,12 @@
 #include <cppconn/connection.h>                 // for sql::Connection definition
 #include "../TypenameDefinitions.h"             // for SP typed definition
 #include "../resource/Resource.h"               // for Resource definition
-#include "../resource/ResourceFactory.h"        // for ResourceFactory definition
+#include "../resource/ResourceInterface.h"      // for ResourceInterface definition
 #include "../logger/Logger.h"                   // for Logger definition
 #include "../cache/Cache.h"                     // for Cache definition
-#include "../logger/Logger.h"                   // for Logger definition
 #include "MySqlConfig.h"                        // for MySqlConfig definition
 #include "../MemoryTracer.h"                    // for memory tracing macros definition
+#include "MySqlUtilities.h"                     // for MySqlInterface definition
 
 namespace macisamuele {
 namespace MySQL {
@@ -28,20 +28,20 @@ SP_NAMESPACE_TYPE(sql, Connection);
 typedef Cache::Cache<std::string, PreparedStatementSP> MySqlCache;
 SP_TYPE(MySqlCache);
 
-class MySqlConnection: public Resource::ResourceFactory, public Resource::Resource {
+class MySqlConnection: public Resource::Resource, public Resource::ResourceInterface, public MySqlUtilities {
 
 public:
     MySqlConnection(const MySqlConfig& iConfiguration);
     MySqlConnection(const MySqlCacheSP& iMySqlCache, const MySqlConfig& iConfiguration);
     MySqlConnection(const Logger::LoggerSP& iLogger, const MySqlCacheSP& iMySqlCache, const MySqlConfig& iConfiguration);
     virtual ~MySqlConnection();
-    virtual macisamuele::Resource::ResourceSP create();
     virtual bool isStatementCached(const std::string& iName);
     virtual bool cacheStatement(const std::string& iName, sql::PreparedStatement* iPreparedStatement);
     virtual bool cacheStatement(const std::string& iName, const PreparedStatementSP iPreparedStatement);
     virtual PreparedStatementSP getStatement(const std::string& iName);
     virtual bool isValid();
     virtual ConnectionSP getConnection();
+
 protected:
     const MySqlConfig configuration;
 

@@ -22,7 +22,6 @@ public:
         DESTRUCTOR(this);
     }
     virtual bool isValid() = 0;
-    virtual ResourceInterfaceSP getResourceInterface() = 0;
 
 };
 SP_TYPE(Resource);

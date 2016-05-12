@@ -1,17 +1,16 @@
 /*
- * MySqlInterface.h
+ * MySqlUtilities.h
  *
  *  Created on: May 7, 2016
  *      Author: samuele
  */
 
-#ifndef MYSQL_MYSQLINTERFACE_H_
-#define MYSQL_MYSQLINTERFACE_H_
+#ifndef MYSQL_MYSQLUTILITIES_H_
+#define MYSQL_MYSQLUTILITIES_H_
 
 #include <vector>                           // for std::vector definition
 #include <cppconn/resultset.h>              // for sql::ResultSet definition
 #include "../resource/ResourceInterface.h"  // for ResoureInterface definition
-#include "MySqlConnection.h"                // for MySqlConnection definition
 #include "../logger/Logger.h"               // for Logger definition
 #include "../MemoryTracer.h"                // for memory tracing macros definition
 
@@ -21,14 +20,10 @@ namespace MySQL {
 typedef std::pair<std::string, int> ColumnNameIndex;
 typedef std::map<std::string, std::string> ResultMap;
 
-class MySqlInterface: public Resource::ResourceInterface {
-private:
-    MySqlConnectionSP connection;
-
+class MySqlUtilities {
 public:
-    MySqlInterface(const MySqlConnectionSP& iConnection);
-    MySqlInterface(const Logger::LoggerSP& iLogger, const MySqlConnectionSP& iConnection);
-    virtual ~MySqlInterface();
+    MySqlUtilities();
+    virtual ~MySqlUtilities();
 
     /**
      * Utilities required for the management of the resource pool and conversions utilities
@@ -65,12 +60,9 @@ protected:
      */
     static void ResultSetToVector(sql::ResultSet* iResultSet, std::vector<ResultMap>& oOutput, bool iClearVector = true);
 
-    MySqlConnectionSP getConnection() {
-        return connection;
-    }
 };
 
 } /* namespace MySQL */
 } /* namespace macisamuele */
 
-#endif /* MYSQL_MYSQLINTERFACE_H_ */
+#endif /* MYSQL_MYSQLUTILITIES_H_ */

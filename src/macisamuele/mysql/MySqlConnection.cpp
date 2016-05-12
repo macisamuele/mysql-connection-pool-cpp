@@ -22,20 +22,32 @@ SP_NAMESPACE_TYPE(sql, Connection);
 typedef Cache::Cache<std::string, PreparedStatementSP> MySqlCache;
 SP_TYPE(MySqlCache);
 
+ConnectionSP initConnection(const MySqlConfig& iConfiguration) {
+    sql::Connection *aConnection = get_driver_instance()->connect(iConfiguration.getServer(), iConfiguration.getUsername(), iConfiguration.getPassword());
+    if (aConnection == NULL) {
+        throw macisamuele::Resource::ResourceUnavailable("MySQL Connection Error");
+    }
+    aConnection->setSchema(iConfiguration.getSchema());
+    return boost::shared_ptr<sql::Connection>(aConnection);
+}
+
 MySqlConnection::MySqlConnection(const MySqlConfig& iConfiguration) :
         configuration(iConfiguration), statementCache(new Cache::LruCache<std::string, PreparedStatementSP>(10)), logger(Logger::Logger::GetLogger<Logger::StderrLogger>()) {
     CONSTRUCTOR(this);
     logger->log(LLOG_TRACE, "MySqlConnection: Allocated New Object");
+    this->connection = initConnection(configuration);
 }
 MySqlConnection::MySqlConnection(const MySqlCacheSP& iMySqlCache, const MySqlConfig& iConfiguration) :
         configuration(iConfiguration), statementCache(iMySqlCache), logger(Logger::Logger::GetLogger<Logger::StderrLogger>()) {
     CONSTRUCTOR(this);
     logger->log(LLOG_TRACE, "MySqlConnection: Allocated New Object");
+    this->connection = initConnection(configuration);
 }
 MySqlConnection::MySqlConnection(const Logger::LoggerSP& iLogger, const MySqlCacheSP& iMySqlCache, const MySqlConfig& iConfiguration) :
         configuration(iConfiguration), statementCache(iMySqlCache), logger(iLogger) {
     CONSTRUCTOR(this);
     logger->log(LLOG_TRACE, "MySqlConnection: Allocated New Object");
+    this->connection = initConnection(configuration);
 }
 
 MySqlConnection::~MySqlConnection() {
@@ -43,17 +55,6 @@ MySqlConnection::~MySqlConnection() {
     if (isValid()) {
         this->connection->close();
     }
-}
-
-macisamuele::Resource::ResourceSP MySqlConnection::create() {
-    //WARNING: the method is not thread safe!
-    sql::Connection *aConnection = get_driver_instance()->connect(configuration.getServer(), configuration.getUsername(), configuration.getPassword());
-    if (aConnection == NULL) {
-        throw macisamuele::Resource::ResourceUnavailable("MySQL Connection Error");
-    }
-    aConnection->setSchema(configuration.getSchema());
-    this->connection = boost::shared_ptr<sql::Connection>(aConnection);
-    return boost::static_pointer_cast<MySqlConnection>(boost::shared_ptr<MySqlConnection>(this));
 }
 
 bool MySqlConnection::isStatementCached(const std::string& iName) {

@@ -1,11 +1,11 @@
 /*
- * MySqlInterface.cpp
+ * MySqlUtilities.cpp
  *
  *  Created on: May 7, 2016
  *      Author: samuele
  */
 
-#include "MySqlInterface.h"
+#include "MySqlUtilities.h"
 #include <cppconn/resultset_metadata.h>     // for sql::ResultSetMetaData definition
 #include "../logger/StderrLogger.h"         // for StderrLogger definition
 
@@ -19,21 +19,14 @@
 namespace macisamuele {
 namespace MySQL {
 
-MySqlInterface::MySqlInterface(const MySqlConnectionSP& iConnection) :
-        connection(iConnection), logger(Logger::Logger::GetLogger<Logger::StderrLogger>()) {
+MySqlUtilities::MySqlUtilities() {
     CONSTRUCTOR(this);
 }
-
-MySqlInterface::MySqlInterface(const Logger::LoggerSP& iLogger, const MySqlConnectionSP& iConnection) :
-        connection(iConnection), logger(iLogger) {
-    CONSTRUCTOR(this);
-}
-
-MySqlInterface::~MySqlInterface(){
+MySqlUtilities::~MySqlUtilities() {
     DESTRUCTOR(this);
 }
 
-std::vector<ColumnNameIndex> MySqlInterface::GetColumnIndexes(sql::ResultSet* iResultSet) {    assert_valid_result_set(iResultSet);
+std::vector<ColumnNameIndex> MySqlUtilities::GetColumnIndexes(sql::ResultSet* iResultSet) {    assert_valid_result_set(iResultSet);
     sql::ResultSetMetaData *aMetadata = iResultSet->getMetaData();
     std::vector<ColumnNameIndex> aColumnIndexes;
     int aColumnCount = aMetadata->getColumnCount();
@@ -44,7 +37,7 @@ std::vector<ColumnNameIndex> MySqlInterface::GetColumnIndexes(sql::ResultSet* iR
     return aColumnIndexes;
 }
 
-void MySqlInterface::ResultSetRowToMap(std::vector<ColumnNameIndex> iColumnIndexes, sql::ResultSet* iResultSet, ResultMap& oOutput, bool iClearMap) {
+void MySqlUtilities::ResultSetRowToMap(std::vector<ColumnNameIndex> iColumnIndexes, sql::ResultSet* iResultSet, ResultMap& oOutput, bool iClearMap) {
     assert_valid_result_set(iResultSet);
     if (iClearMap) {
         oOutput.clear();
@@ -54,11 +47,11 @@ void MySqlInterface::ResultSetRowToMap(std::vector<ColumnNameIndex> iColumnIndex
     }
 }
 
-void MySqlInterface::ResultSetRowToMap(sql::ResultSet* iResultSet, ResultMap& oOutput, bool iClearMap) {
+void MySqlUtilities::ResultSetRowToMap(sql::ResultSet* iResultSet, ResultMap& oOutput, bool iClearMap) {
     ResultSetRowToMap(GetColumnIndexes(iResultSet), iResultSet, oOutput, iClearMap);
 }
 
-void MySqlInterface::ResultSetToVector(std::vector<ColumnNameIndex> iColumnIndexes, sql::ResultSet* iResultSet, std::vector<ResultMap>& oOutput, bool iClearVector) {
+void MySqlUtilities::ResultSetToVector(std::vector<ColumnNameIndex> iColumnIndexes, sql::ResultSet* iResultSet, std::vector<ResultMap>& oOutput, bool iClearVector) {
     assert_valid_result_set(iResultSet);
     if (iClearVector) {
         oOutput.clear();
@@ -71,7 +64,7 @@ void MySqlInterface::ResultSetToVector(std::vector<ColumnNameIndex> iColumnIndex
     }
 }
 
-void MySqlInterface::ResultSetToVector(sql::ResultSet* iResultSet, std::vector<ResultMap>& oOutput, bool iClearVector) {
+void MySqlUtilities::ResultSetToVector(sql::ResultSet* iResultSet, std::vector<ResultMap>& oOutput, bool iClearVector) {
     ResultSetToVector(GetColumnIndexes(iResultSet), iResultSet, oOutput, iClearVector);
 }
 
